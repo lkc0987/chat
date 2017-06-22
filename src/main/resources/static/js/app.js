@@ -1,23 +1,24 @@
+require('materialize-css/dist/js/materialize');
+
+import Vue from 'vue';
+
 import * as ChatHeader from "./components/chat-header.vue";
 import * as ChatApp from "./components/chat-app.vue";
-
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
-    state: {
-        count: 0
-    },
-    mutations: {
-        increment (state) {
-            state.count++
-        }
-    }
-});
+import store from "./components/chat-store";
 
 new Vue({
     el: '.app-container',
+    store,
     components: {
         'chat-header': ChatHeader,
         'chat-app': ChatApp
+    },
+    created: function () {
+
+    },
+    mounted: function () {
+        store.dispatch('LOAD_CHAT_LIST');
+    },
+    methods: {
     }
 });

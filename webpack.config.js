@@ -16,6 +16,10 @@ const extractScss = new ExtractTextPlugin({
 });
 const pathRewriter = new PathRewriterPlugin();
 
+function resolve (dir) {
+    return path.join(__dirname, dir)
+}
+
 var config = {
     entry: {
         // main less file
@@ -31,7 +35,11 @@ var config = {
         chunkFilename: '[id].[name].js'
     },
     resolve: {
-        extensions: ['.vue', '.js']
+        extensions: ['.vue', '.js', '.json'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js',
+            'jquery': resolve('node_modules/jquery/dist/jquery')
+        }
     },
     module: {
         rules: [{
@@ -76,7 +84,13 @@ var config = {
     },
     plugins: [
         extractScss,
-        pathRewriter
+        pathRewriter,
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.$': 'jquery',
+            'window.jQuery': 'jquery'
+        })
     ]
 };
 

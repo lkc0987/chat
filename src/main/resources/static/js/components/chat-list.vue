@@ -12,51 +12,28 @@
 </template>
 
 <script type="text/javascript">
+    import { mapGetters } from 'vuex';
+
     export default {
         name: 'chat-list',
         data () {
             return {
-                chats: []
             }
         },
-        computed: {
-            computedChats() {
-                console.log(this.chats);
-                if (!this.chats) {
-                    this.chats = [{}];
-                }
-                let clone = this.chats.slice(0);
-                clone.forEach(a => a.test = a.title.substr(0,1));
+        computed: mapGetters([
+            'computedChats'
+        ]),
+    }
+</script>
 
-                return clone;
-            }
-        },
-        created: function () {
-            this.fetchChatList();
-        },
-        methods: {
-            fetchChatList () {
-                this.$http.get('/api/chat-list').then(response => {
-                    this.chats = response.body;
-                }, response => {
-                    // error callback
-                });
-            }
+<style lang="scss" scoped>
+    $hover-color: #f5f5f5;
+    .collection-item {
+        cursor: pointer;
+        transition: 0.5s ease-in-out all;
+        &:hover {
+            transition: 0.15s ease-in-out all;
+            background: $hover-color;
         }
     }
-
-    /*
-     {
-     image: 'http://i1.kym-cdn.com/entries/icons/facebook/000/013/564/aP2dv.jpg',
-     title: 'Group 1',
-     recent: 'Hello doge. much wow.'
-     }, {
-     title: 'Group 3',
-     recent: 'Hello doge. much wow.'
-     }, {
-     image: 'http://i1.kym-cdn.com/entries/icons/facebook/000/013/564/aP2dv.jpg',
-     title: 'Group 2',
-     recent: 'Hello doge. much wow.'
-     }
-     */
-</script>
+</style>

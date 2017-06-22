@@ -1,13 +1,13 @@
 <template>
     <nav>
-        <div class="nav-wrapper blue-grey darken-1">
+        <div class="nav-wrapper grey darken-4">
             <a href="#" class="brand-logo">Logo</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
+                <!--<li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>-->
                 <li>
-                    <form action="/logout" method="post" class="right">
-                        <input type="submit" class="waves-effect waves-light btn-flat" value="logout">
+                    <a href="#" @click="logout"><i class="material-icons">lock</i></a>
+                    <form ref="logout" action="/logout" method="post" class="right">
                     </form>
                 </li>
             </ul>
@@ -20,6 +20,11 @@
         data() {
             return {
                 message: 'Hello!'
+            }
+        },
+        methods: {
+            logout () {
+                this.$refs.logout.submit();
             }
         }
     }
